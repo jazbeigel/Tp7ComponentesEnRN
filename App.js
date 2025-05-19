@@ -1,39 +1,131 @@
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
+import {  SafeAreaView,  StyleSheet,  Text,  View,  ImageBackground,  Image,  TextInput,  Alert,  TouchableOpacity,  Pressable,
+} from 'react-native';
 
+const fondo =  require('./assets/fondo.jpg');
 
-const image = {uri: 'https://s0.smartresize.com/wallpaper/820/481/HD-wallpaper-huawei-background-blue-celeste-colors-gradient-simple-slender.jpg'};
-const image2 = {uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAM1BMVEXk5ueutLfn6eqrsbTp6+zg4uOwtrnJzc/j5earsbW0uby4vcDQ09XGyszU19jd3+G/xMamCvwDAAAFLklEQVR4nO2d2bLbIAxAbYE3sDH//7WFbPfexG4MiCAcnWmnrzkjIRaD2jQMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMwzAMw5wQkHJczewxZh2lhNK/CBOQo1n0JIT74/H/qMV0Z7GU3aCcVPuEE1XDCtVLAhgtpme7H0s1N1U7QjO0L8F7llzGeh1hEG/8Lo7TUmmuSrOfns9xnGXpXxsONPpA/B6OqqstjC6Ax/0ujkNdYQQbKNi2k64qiiEZ+ohi35X+2YcZw/WujmslYewiAliVYrxgJYrdwUmwXsU+RdApUi83oNIE27YvrfB/ZPg8+BJETXnqh9CVzBbTQHgojgiCvtqU9thFJg/CKz3VIMKMEkIXxIWqIpIg2SkjYj+xC816mrJae2aiWGykxRNsW0UwiJghJDljYI5CD8GRiCtIsJxizYUPQ2pzItZy5pcisTRdk/a9m4amtNNfBuQkdVhSaYqfpNTSFGfb9GRIakrE2Pm+GFLaCQPqiu0OpWP+HMPQQcgQMiQprWXNmsVwIjQjYi/ZrhAqNTCgr2gu0Jnz85RSSjso0HkMFZ0YZjKkc26a/jlmh9JiDyDxi9oeorTYAzZkwwoMz19pzj9bnH/GP/+qbchjSGflneWYhtTuKdMOmNKZcJ5TjInQKcYXnESd/jQxy0ENpULTNGOGgxpap/oyw9pbUAqhfx2Dbkhovvfgz4iUzoM9+GlK6/Mh4q29hyC1mwro30hpVVLPF9wYQr71RazOeM5/cw81iBRD+A03aM9/C/obbrKjbYSpCmIVG3qT/Q8oeUo3Rz0IL7vI1tEbCB9pSiu8I/aV8x3Kg/BGWrWp4ZVs0nZfmAoEG4h/61yHYIJiFSl6Q0Vk6tTW1N8kYp8hdOkfHYYMXd2Qft+8CYwqYDSKvqIh+MCF8Wgca2u/cwdgeW3TtuVn6+1oBs3yLo5C2JpK6CvQzGpfUkz9UG/87gCsi5o2LIXolxN0FbwAsjOLEr+YJmXn7iR6N0BCt5p5cMxm7eAsfS+/CACQf4CTpKjzgkvr2cVarVTf96372yut7XLJ1sa7lv6VcfgYrWaxqr3Wlo1S6pvStr22sxOtTNPLzdY3nj20bPP+ejFdJYkLsjGLdtPBEbe/mr2bQKiXWJDroA+vtzc0p9aahuwqHMDYrQEXHEw9jwQl3drMpts9JBU1SdktPe5FBRdJQ6bwXBpa57ib2A8kukQDzMjh++Uo7Fo6Wd02Pkf4fknqoo4HtvAIjsqUcjx6DIPgWCaOML9rKI/oqD9/lgNrn+eF+p7j8tnzHBiR7+kdUGw/+V1Kzkc75mMy6U+FMaxjPibiM1U1uGM+puInHpmALZCgP4pt7i840MV8+0R1zPsRB6UTcqpizncYwZ89syDydfyWCwXB1l8/zRNGWbTG/GHKUm9AkxHMc/EGSk3z2+ArEhPEV5TUBLEvUGFcjEUH80J/jveTGOAJEljJbILWGQT3zRYiwuKsUXN1EEJAzBhRJFll7mBUG7KD8EqPkKekBREaL8hMDZLQSG6AQjtHPYmvTQnX0TtpC1SYCe2YdkkyLP3jj5BSbKiuR585eQhTgoje6yIb0Yb0C+mV6EYvebqw5SDy2WmubogZiF2AVxPC2FpDf8H2Q9QWo6IkjUxTWVEI3WY/wrCeSuqJ+eRWzXR/JXwgVjUMozbCOfoEZiSiKVGepqv5CJ8RyR4D7xBeamqa7z3BJ/z17JxuBPdv93d/a2Ki878MMAzDMAzDMAzDMAzDMF/KP09VUmxBAiI3AAAAAElFTkSuQmCC'}
-
+const perfil = require('./assets/fotoPerfil.png'); // Tu imagen subida como archivo
 
 export default function App() {
+  const [mensaje, setMensaje] = useState('');
+
+
   return (
-      <View style={styles.container}>
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={styles.text}>Tarjeta Personal</Text>
-        <Image source={image2} style={styles.image2} ></Image> 
+    <SafeAreaView style={styles.safeArea}>
+      <ImageBackground source={fondo} style={styles.fondo}> 
+        <View style={styles.card}>
+          <Image source={perfil} style={styles.fotoPerfil} />
+          <Text style={styles.nombre}>Jazmin Beigel</Text>
+          <Text style={styles.titulo}>Alumna de ort</Text>
+
+          <View style={styles.iconos}>
+            <Text style={styles.icono}>💻</Text>
+            <Text style={styles.icono}>🔗</Text>
+            <Text style={styles.icono}>✉️</Text>
+            <Text style={styles.icono}>📞</Text>
+          </View>
+
+          <Pressable
+            onPress={() => Alert.alert('Portfolio', 'Mostrando portfolio...')}
+            style={({ pressed }) => [
+              styles.botonPortfolio,
+              { opacity: pressed ? 0.6 : 1 },
+            ]}
+          >
+            <Text style={styles.botonTexto}>Ver Portfolio</Text>
+          </Pressable>
+
+          <TextInput
+            style={styles.input}
+            placeholder="Escribe un mensaje..."
+            placeholderTextColor="#999"
+            value={mensaje}
+            onChangeText={setMensaje}
+          />
+
+          <TouchableOpacity style={styles.botonContactar}>
+            <Text style={styles.botonTexto}>Contactar</Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
-        <StatusBar style="auto" />
-      </View>
+      <StatusBar style="light" />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
   },
-  image: {
+  fondo: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
-  text: {
+  card: {
+    backgroundColor: 'white',
+    padding: 25,
+    borderRadius: 20,
+    alignItems: 'center',
+    width: '85%',
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  fotoPerfil: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderColor: '#f5a623',
+    borderWidth: 4,
+    marginBottom: 10,
+  },
+  nombre: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#2c2c54',
+  },
+  titulo: {
+    fontStyle: 'italic',
+    color: '#4b6584',
+    marginBottom: 10,
+  },
+  iconos: {
+    flexDirection: 'row',
+    gap: 10,
+    marginVertical: 10,
+  },
+  icono: {
+    fontSize: 24,
+  },
+  botonPortfolio: {
+    backgroundColor: '#2c2c54',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+  },
+  botonContactar: {
+    backgroundColor: '#4b7bec',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginTop: 10,
+  },
+  botonTexto: {
     color: 'white',
-    textAlign: 'center',
+    fontWeight: 'bold',
   },
-  image2: {
-    justifyContent: 'center',
-    width: 80,
-    height: 80,
-    
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    padding: 10,
+    width: '100%',
+    marginTop: 10,
+    backgroundColor: '#f1f2f6',
   },
 });
