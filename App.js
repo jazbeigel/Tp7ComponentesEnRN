@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import {  SafeAreaView,  StyleSheet,  Text,  View,  ImageBackground,  Image,  TextInput,  Alert,  TouchableOpacity,  Pressable,
-} from 'react-native';
+import {  SafeAreaView,  StyleSheet,  Text,  View,  ImageBackground,  Image,  TextInput,  Alert,  TouchableOpacity,  Pressable} from 'react-native';
 
-const fondo =  require('./assets/fondo.jpg');
+const imgFondo =  require('./assets/fondo.jpg');
 
 const perfil = require('./assets/fotoPerfil.png'); // Tu imagen subida como archivo
 
@@ -12,8 +11,7 @@ export default function App() {
 
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ImageBackground source={fondo} style={styles.fondo}> 
+        <ImageBackground source={imgFondo} style={styles.fondo}> 
         <View style={styles.card}>
           <Image source={perfil} style={styles.fotoPerfil} />
           <Text style={styles.nombre}>Jazmin Beigel</Text>
@@ -25,43 +23,36 @@ export default function App() {
             <Text style={styles.icono}>✉️</Text>
             <Text style={styles.icono}>📞</Text>
           </View>
-
           <Pressable
             onPress={() => Alert.alert('Portfolio', 'Mostrando portfolio...')}
-            style={({ pressed }) => [
-              styles.botonPortfolio,
-              { opacity: pressed ? 0.6 : 1 },
-            ]}
-          >
-            <Text style={styles.botonTexto}>Ver Portfolio</Text>
+            style={({ pressed }) => [ // style como propiedad, cuando esta en pressed el pressable
+              styles.botonPortfolio,{
+              opacity: pressed ? 0.6 : 1 } // es un estilo para una condicion, si esta pressed, que tenga 0.6 de opacidad, ? es un if, si es true la opacidad baja a 0.6, sino queda en uno
+            ]}>
+          <Text style={styles.botonTexto}>Ver Portfolio</Text> {/* texto del boton*/}
           </Pressable>
-
           <TextInput
             style={styles.input}
             placeholder="Escribe un mensaje..."
-            placeholderTextColor="#999"
             value={mensaje}
             onChangeText={setMensaje}
           />
-
           <TouchableOpacity style={styles.botonContactar}>
             <Text style={styles.botonTexto}>Contactar</Text>
           </TouchableOpacity>
         </View>
+        <StatusBar style="light" />
       </ImageBackground>
-      <StatusBar style="light" />
-    </SafeAreaView>
+      
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
   fondo: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    resizeMode:'cover'
   },
   card: {
     backgroundColor: 'white',
@@ -69,11 +60,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     width: '85%',
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 10,
     elevation: 5,
+    borderWidth: 4,
+    borderColor: '#F4B26B',
   },
   fotoPerfil: {
     width: 100,
@@ -127,5 +116,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 10,
     backgroundColor: '#f1f2f6',
+    placeholderTextColor:"#999"
   },
 });
